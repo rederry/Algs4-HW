@@ -53,8 +53,8 @@ public class Transaction {
     public static void main(String[] args) {
         Transaction t1 = new Transaction("kang", new SmartDate(3, 18, 2017), 1000);
         Transaction t2 = new Transaction("kang", new SmartDate(3, 18, 2017), 1000);
-        Transaction t3 = new Transaction("kang 3/18/2017 1000");
+        Transaction t3 = (Transaction) new Transaction("kang 3/18/2017 1000");
         System.out.println(t3.date());
-//        System.out.println(t1.equals(t3));
+        System.out.println(t1.equals(t3));
     }
 }
