@@ -1,6 +1,9 @@
 import edu.princeton.cs.algs4.StdDraw;
 
 public class Test1120 {
+    public static void t() {
+        int a = 0;
+    }
     public static void main(String[] args) {
         int N = 100;
         StdDraw.setXscale(0, N);
