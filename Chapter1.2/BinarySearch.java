@@ -8,7 +8,7 @@ public class BinarySearch {
     public static int rank(int key, int[] a, Counter c) {
         int lo = 0;
         int hi = a.length-1;
-        while (hi > lo) {
+        while (hi >= lo) {
             c.increment();
             int mid = lo + (hi - lo) / 2;
             if (key == a[mid]) return mid;

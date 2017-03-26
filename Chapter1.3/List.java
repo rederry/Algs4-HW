@@ -20,18 +20,90 @@ public class List<Item> {
     }
 
     /**
+     * E1319 
+     * Remove the last one node
+     */
+    public void removeLast() {
+        if (first == null) return;
+        if (first.next == null) {
+            first = null;
+            return;
+        }
+        Node curr = first;
+        while (curr.next.next != null)
+            curr = curr.next;
+        curr.next = null;
+    }
+
+    /**
      * E1320
      */
     public void delete(int k) {
+        if (k > n || k <= 0) return;
+        if (k == 1) {
+            first = first.next;
+            return;
+        }
         --k; 
         Node curr = first;
-        while (k != 0) {
+        while (k-- != 1)
             curr = curr.next;
-            k--;
-        }
-        curr = curr.next;
+        curr.next = curr.next.next;
     }
 
+    /**
+     * E1321 Find
+     */
+    public boolean find(Item key) {
+        Node curr = first;
+        while (curr != null) {
+            if (curr.item.equals(key))
+                return true;
+            curr = curr.next;
+        }
+        return false;
+    }
+
+    /**
+     * E1324
+     */
+    public void removeAfter(Node n) {
+        Node curr = first;
+        while (curr != null) {
+            if (curr.item.equals(n.item) && curr.next != null) {
+                curr.next = curr.next.next;
+                break;
+            }
+        }
+    }
+
+    /**
+     * E1325
+     */
+    public void insertAfter(Node n1, Node n2) {
+        if (!find(n1.item)) return;
+        Node curr = first;
+        while (curr != null) {
+            if (curr.item.equals(n1.item)){
+                n2.next = curr.next;
+                curr.next = n2;
+            }
+        }
+    }
+
+    /**
+     * E1326
+     */
+    public void remove(Item key) {
+        Node curr = first;
+        while (curr != null) {
+            if (curr.next != null && curr.next.item.equals(key))
+                curr.next = curr.next.next;
+            curr = curr.next;
+        }
+    }
+
+    @Override
     public String toString() {
         String s = "";
         Node curr = first;
@@ -48,8 +120,7 @@ public class List<Item> {
             String s = StdIn.readString();
             l.add(s);
         }
-        StdOut.println(l);
-        l.delete(3);
-        StdOut.println(l);
+        StdOut.println(l.find("kakak"));
+        StdOut.println(l.find("a"));
     }
 }
