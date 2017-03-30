@@ -103,6 +103,40 @@ public class List<Item> {
         }
     }
 
+    /**
+     * E1327 Max
+     */
+    public Integer max() {
+        if (first == null) return null;
+        Item max = first.item;
+        Node curr = first;
+        while (curr != null) {
+            if (curr.item.equals(max)) max = curr.item;
+            curr = curr.next;
+        }
+        return max;
+    }
+    public static Item maxRec(Node n) {
+        if (n == null) return null;
+        if (n.next = null) return n.item;
+        Item first = n.item;
+        Item max = maxRec(n.next);
+        if (first > max) return first;
+        else return max;
+    }
+
+    /**
+     * E1330
+     */
+    public static Node reverse(Node first) {
+        if (first == null) return null;
+        Node sec = first.next;
+        Node r = reverse(sec);
+        sec.next = first;
+        first.next = null;
+        return r;
+    }
+    
     @Override
     public String toString() {
         String s = "";

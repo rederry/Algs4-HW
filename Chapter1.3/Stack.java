@@ -10,6 +10,28 @@ public class Stack<Item> implements Iterable<Item>{
     private class Node {
         Item item;
         Node next;
+        Node() {
+            item = null;
+            next = null;
+        }
+        Node(Node x) {
+            item = x.item;
+            if (x.next != null) next = new Node(x.next);
+            else next = null;
+        }
+    }
+
+    public Stack() {
+        first = null;
+        n = 0;
+    }
+    
+    /**
+     * Exercises 1.3.42
+     * Copy constructor
+     */
+    public Stack(Stack<Item> s) {
+        first = new Node(s.first);
     }
     
     public boolean isEmpty() {
@@ -59,6 +81,24 @@ public class Stack<Item> implements Iterable<Item>{
             return item;
         }
     }
+
+    public void clear() {
+        Node p = first;
+        while (p != null) {
+            p.item = null;
+            p = p.next;
+        }
+        first = null;
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (Item item : this) {
+            s += item + "->";
+        }
+        return s + "null";
+    }
     
     /**
      * Exercises 1.3.12
@@ -87,6 +127,18 @@ public class Stack<Item> implements Iterable<Item>{
                 StdOut.println(s.pop() + " ");
             }
         }
-        for (String x : Stack.copy(s)) StdOut.println(x);
+        StdOut.println(s);
+        Stack<String> cp1 = Stack.copy(s);
+        StdOut.println(cp1);
+        Stack<String> cp2 = new Stack<String>(s);
+        StdOut.println(cp2);
+
+        StdOut.println("Empty the origin stack");
+        s.clear();
+        
+        StdOut.println(s);
+        StdOut.println(cp1);
+        StdOut.println(cp2);
+
     }
 }
