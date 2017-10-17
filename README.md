@@ -1,1 +1,2 @@
-# Algs4-HW
+# Algorithms, 4th Edition
+# Chapter's exercise
