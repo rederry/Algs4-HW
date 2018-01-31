@@ -1,4 +1,5 @@
-
+import java.util.Queue;
+import java.util.LinkedList;
 /**
  * Binary Search Trees Class
  */
@@ -48,23 +49,28 @@ public class BST<Key extends Comparable<Key>, Value> {
      * 3.2.6
      * @return height of the tree
      */
-    public int height() {
+    public int heightRec() {
         // Recursive
-        return height(root);
+        return heightRec(root);
     }
-    public int height2() {
-        // Non-recursive
-        if (root == null) return 0;
-        return root.h;
-    }
-
-    private int height(Node x) {
+    private int heightRec(Node x) {
         if (x == null) return 0;
-        int lh = height(x.left);
-        int rh = height(x.right);
+        int lh = heightRec(x.left);
+        int rh = heightRec(x.right);
         if (lh > rh) return lh + 1;
         else         return rh + 1;
     }
+
+    public int height() {
+        // Non-recursive
+        return height(root);
+    }
+    private int height(Node x) {
+        if (x == null) return 0;
+        return x.h;
+    }
+
+
 
 
     /**
@@ -98,7 +104,7 @@ public class BST<Key extends Comparable<Key>, Value> {
         else if (cmp > 0) x.right = put(x.right, key, val);
         else x.val = val;
         x.n = size(x.right) + size(x.left) + 1;
-        x.h = Math.max(x.right.h, x.left.h) + 1;
+        x.h = Math.max(height(x.right), height(x.left)) + 1;
         return x;
     }
 
@@ -114,7 +120,7 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (x.left != null) {
             x.left = deleteMin(x.left);
             x.n = size(x.left) + size(x.right) + 1;
-            x.h = Math.max(x.right.h, x.left.h) + 1;
+            x.h = Math.max(height(x.right), height(x.left)) + 1;
             return x;
         } else {
             return x.right;
@@ -143,7 +149,7 @@ public class BST<Key extends Comparable<Key>, Value> {
             x.right = deleteMin(t.right);
         }
         x.n = size(x.left) + size(x.right) + 1;
-        x.h = Math.max(x.right.h, x.left.h) + 1;
+        x.h = Math.max(height(x.right), height(x.left)) + 1;
         return x;
     }
     
@@ -213,5 +219,20 @@ public class BST<Key extends Comparable<Key>, Value> {
         return x.key;
     }
 
+    /** 
+     * Return all of the keys
+     */
+    public Iterable<Key> keys() {
+        Queue<Key> queue = new LinkedList<>();
+        keys(root, queue);
+        return queue;
+    }
+
+    private void keys(Node x, Queue<Key> queue) {
+        if (x == null) return;
+        keys(x.left, queue);
+        queue.add(x.key);
+        keys(x.right, queue);
+    }
 
 }
