@@ -5,7 +5,7 @@ import java.util.LinkedList;
  */
 public class BST<Key extends Comparable<Key>, Value> {
     
-    Node root;
+    private Node root;
     
     /**
      * Nested class Node present the nodes in BST
@@ -19,7 +19,7 @@ public class BST<Key extends Comparable<Key>, Value> {
         // The height from this node
         private int h;
         
-        public Node(Key key, Value value, int n, int h) {
+        public Node(Key key, Value val, int n, int h) {
             this.key = key;
             this.val = val;
             this.n = n;
@@ -69,9 +69,6 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (x == null) return 0;
         return x.h;
     }
-
-
-
 
     /**
      * The value of the given key
@@ -145,8 +142,8 @@ public class BST<Key extends Comparable<Key>, Value> {
             if (x.left == null) return x.right;
             Node t = x;
             x = min(x.right);
-            x.left = t.left;
             x.right = deleteMin(t.right);
+            x.left = t.left;
         }
         x.n = size(x.left) + size(x.right) + 1;
         x.h = Math.max(height(x.right), height(x.left)) + 1;
