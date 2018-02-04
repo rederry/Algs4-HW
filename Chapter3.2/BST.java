@@ -87,6 +87,39 @@ public class BST<Key extends Comparable<Key>, Value> {
         else return x.val;
     }
 
+    // Non-recursive get and put
+    public Value get2(Key key) {
+        Node curr = root;
+        while (curr != null) {
+            int cmp = key.compareTo(curr.key);
+            if      (cmp < 0) curr = curr.left;
+            else if (cmp > 0) curr = curr.right;
+            else return curr.val;
+        }
+        return null;
+    }
+
+    public void put2(Key key, Value val) {
+        if (root == null) root = new Node(key, val, 1, 1);
+        Node curr = root;
+        while (curr != null) {
+            int cmp = key.compareTo(curr.key);
+            if (cmp < 0) {
+                if (curr.left == null) {
+                    curr.left = new Node(key, val, 1, 1);
+                    return;
+                }
+                curr = curr.left;
+            } else if (cmp > 0) {
+                if (curr.right == null) {
+                    curr.right = new Node(key, val, 1, 1);
+                    return;
+                }
+                curr = curr.right;
+            } else { curr.val = val; }
+        }
+    }
+
     /**
      * Insert the new value into tree
      */
