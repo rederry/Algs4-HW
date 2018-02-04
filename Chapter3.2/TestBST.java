@@ -47,5 +47,9 @@ public class TestBST {
         System.out.println("HeightRec: " + bst.heightRec());
         for (String s : bst.keys())
             System.out.println(s + " " + bst.get(s));
+
+        // Test isBST()
+        System.out.print("Test isBST: ");
+        System.out.println(bst.isBST());
     }    
 }

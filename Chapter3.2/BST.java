@@ -265,4 +265,44 @@ public class BST<Key extends Comparable<Key>, Value> {
         keys(x.right, queue);
     }
 
+    private boolean isBinaryTree(Node x) {
+        return sizeof(x) == x.n;
+    }
+
+    private int sizeof(Node x) {
+        if (x == null) return 0;
+        return 1 + sizeof(x.left) + sizeof(x.right);
+    }
+
+    private boolean isOrdered(Node x, Key min, Key max) {
+        if (x == null) return true;
+        int cmpMin = x.key.compareTo(min);
+        int cmpMax = x.key.compareTo(max);
+        if (cmpMin >= 0 && cmpMax <= 0)
+            return isOrdered(x.left, min, x.key) && isOrdered(x.right, x.key, max);
+        else 
+            return false;
+    }
+
+    private boolean hasNoDuplicates(Node x) {
+        if (x == null) return true;
+        if (x.left != null && x.right != null) {
+            if (x.left.key.compareTo(x.key) == 0 || x.right.key.compareTo(x.key) == 0) return false;
+            return hasNoDuplicates(x.left) && hasNoDuplicates(x.right);
+        } else if (x.left == null) {
+            return hasNoDuplicates(x.right);
+        } else if (x.right == null) {
+            return hasNoDuplicates(x.left);
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Return true if this tree is a BST
+     */
+    public boolean isBST() {
+        return isOrdered(root, min(), max()) && hasNoDuplicates(root);
+    }
+
 }
